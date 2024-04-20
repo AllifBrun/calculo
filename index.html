@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>w3</title>
+
+<style>
+    body{
+        background-color: rgb(4, 36, 46) ;
+    }
+    .btn{
+        border: 1px solid black;
+        text-align: center;
+        background-color: rgb(255, 255, 255);
+        border-radius: 5px;
+    }
+
+    .btn:hover{
+     cursor: pointer;
+    }
+
+    .calculadora{
+        column-gap: 20px;
+    }
+    .hold{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+    }
+    .main{
+        background-color: rgb(0, 58, 92);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+       padding: 20px;
+       flex-direction: column;
+       border-radius: 5px;
+    }
+    .display{
+        text-align: right;
+    }
+
+    h1{
+        color: white;
+    }
+</style>
+
+</head>
+<body>
+    <div class="hold">
+    <div class="main">
+        <h1>Calculadora</h1>
+        <table class="calculadora">
+        <tr>
+            <td colspan="4"><input type="text" class="display"></td>
+        </tr>
+        <tr>
+            <td class="btn btn-clear">C</td>
+            <td class="btn btn-num">(</td>
+            <td class="btn btn-num">)</td>
+            <td class="btn btn-num">/</td>
+        </tr>
+
+        <tr>
+            <td class="btn btn-num">7</td>
+            <td class="btn btn-num">8</td>
+            <td class="btn btn-num">9</td>
+            <td class="btn btn-num">*</td>
+        </tr>
+
+        <tr>
+            <td class="btn btn-num">4</td>
+            <td class="btn btn-num">5</td>
+            <td class="btn btn-num">6</td>
+            <td class="btn btn-num">+</td>
+        </tr>
+
+        <tr>
+            <td class="btn btn-num">1</td>
+            <td class="btn btn-num">2</td>
+            <td class="btn btn-num">3</td>
+            <td class="btn btn-num">-</td>
+        </tr>
+
+        <tr>
+            <td class="btn btn-num">.</td>
+            <td class="btn btn-num">0</td>
+            <td class="btn btn-del">&laquo;</td>
+            <td class="btn btn-eq">=</td>
+        </tr>
+</table>
+
+
+</div>
+
+</div>
+
+<script>
+
+
+
+function calcula() {
+    var display = document.querySelector(".display");
+
+    document.addEventListener('keyup', function(e) {
+        // Uso do atributo 'key' em vez de 'keyCode'
+        if (e.key === "Enter") {
+            try {
+                display.value =  eval(display.value).toFixed(2);
+            } catch (error) {
+                display.value = "Erro";
+                console.error("Erro ao calcular:", error);
+            }
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        const el = e.target;
+        // Não é necessário redefinir 'display' aqui, já está disponível
+        if (el.classList.contains('btn-num')) {
+            display.value += el.innerText;
+        } else if (el.classList.contains('btn-clear')) {
+            display.value = ""; // Alterado para string vazia por consistência
+        } else if (el.classList.contains('btn-eq')) {
+            try {
+                display.value = eval(display.value).toFixed(2);
+            } catch (error) {
+                display.value = "Erro";
+                console.error("Erro ao calcular:", error);
+            }
+        } else if (el.classList.contains('btn-del')) {
+            display.value = display.value.slice(0, -1);
+        }
+    });
+}
+calcula();
+
+
+</script>
+</body>
+</html>
